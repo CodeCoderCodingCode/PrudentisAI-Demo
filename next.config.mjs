@@ -7,8 +7,6 @@ const nextConfig = {
         hostname: "randomuser.me",
       },
     ],
-    // oder einfach:
-    // domains: ['randomuser.me']
   },
   experimental: {
     serverActions: {
@@ -17,4 +15,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

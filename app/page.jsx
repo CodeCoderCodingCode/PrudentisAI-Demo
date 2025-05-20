@@ -82,7 +82,7 @@ export default function Home() {
                         Join thousands of users who are already managing their finances smarter and faster with
                         Prudentis AI
                     </p>
-                    <Link href="/dashboard">
+                    <Link href="/sign-up">
                         <Button size="lg" className="bg-black text-yellow-500 hover:bg-blue-950 animate-bounce">
                             Start Free Trial
                         </Button>

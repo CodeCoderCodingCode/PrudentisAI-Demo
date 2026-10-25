@@ -119,10 +119,12 @@ Set `OPEN_EXCANGE_API_KEY` for the Open Exchange Rates integration. The endpoint
 | Receipt scan fails | Check model/key access, provider quota and the scan limit; use a supported image of at most 4 MiB. |
 | Jobs do not run | Check Inngest registration and whether Arcjet permits the incoming requests. |
 | No email arrives | Check Resend's sender and recipient restrictions, API response and job run logs. |
-| `/api/seed` fails | It uses fixed IDs and is not a supported setup step. Do not use it to populate a real account. |
+| `/api/seed` returns 410 | The legacy destructive seed route is intentionally disabled. Add sample transactions through the UI. |
 
 ## Deployment
 
-`npm run build` and `npm start` build and serve the full app. Configure the application's environment variables in the target platform, apply migrations to the intended database and configure Clerk, Arcjet, Resend and Inngest for that environment. The app also downloads its Google font during the build.
+`npm run build` and `npm start` build and serve the full app. A build does not require live database or authentication calls: the root layout renders per request. Runtime requests still need the application's environment variables in the target platform. Apply migrations to the intended database and configure Clerk, Arcjet, Resend and Inngest for that environment. The app also downloads its Google font during the build.
+
+For Supabase on Vercel, use the project's actual shared transaction-pooler host on port 6543 for `DATABASE_URL` with `pgbouncer=true`, and the session-pooler connection on port 5432 for `DIRECT_URL` when the deployment environment only supports IPv4. Copy the host from the project's Connect dialog; the cluster index cannot be inferred from its region. See the [Supabase connection guide](https://supabase.com/docs/guides/database/connecting-to-postgres).
 
 Review the [implementation notes](ARCHITECTURE.md#implementation-notes) before public deployment. The isolated preview build only checks UI rendering and does not establish that the complete application or its services are production-ready.

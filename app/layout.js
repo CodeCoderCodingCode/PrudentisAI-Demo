@@ -7,6 +7,9 @@ import {Toaster} from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Authentication and user data are resolved per request, never at build time.
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Prudentis AI",
   description: "The Smart Money Manager",

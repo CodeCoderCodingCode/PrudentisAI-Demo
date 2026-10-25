@@ -1,6 +1,6 @@
-import {seedTransactions} from "@/actions/seed";
-
-export async function GET(){
-    const result = await seedTransactions();
-    return new Response.json(result);
+export async function GET() {
+    return Response.json(
+        { error: "Legacy seeding is disabled. Add fictional transactions through the account interface." },
+        { status: 410 }
+    );
 }

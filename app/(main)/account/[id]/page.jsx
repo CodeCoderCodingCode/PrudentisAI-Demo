@@ -9,7 +9,8 @@ import {EditableAccountHeaderL, EditableAccountHeaderR} from "@/app/(main)/accou
 
 
 const AccountsPage = async ({ params }) => {
-    const accountData = await getAccountWithTransactions(params.id);
+    const { id } = await params;
+    const accountData = await getAccountWithTransactions(id);
     if (!accountData) {
         notFound();
     }

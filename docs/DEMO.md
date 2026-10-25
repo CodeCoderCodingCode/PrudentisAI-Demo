@@ -44,7 +44,7 @@ Use a configured development environment from [SETUP.md](SETUP.md), or arrange h
 6. **Optional: scan a receipt.** Configure the Gemini key, use a legible JPEG/PNG/WebP of at most 4 MiB, check extracted values and save only after review. Authentication, scan limits and provider quotas apply.
 7. **Optional: inspect automation.** With Inngest and email configured, examine registered jobs and their run logs. The local component preview alone never runs these integrations.
 
-Do not use the legacy `/api/seed` endpoint for this tour. It contains fixed IDs and deletes transactions for its configured account.
+The legacy `/api/seed` endpoint is disabled and returns HTTP 410. It does not run the historical generator with fixed IDs. Add sample transactions through the interface.
 
 ## Screenshots: origin and reproduction
 

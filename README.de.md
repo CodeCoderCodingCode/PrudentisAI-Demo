@@ -57,7 +57,7 @@ Next.js 15 und React 19 bilden die Anwendung. Die Oberfläche nutzt Tailwind CSS
 
 Das Projekt ist eine Demo. Belegscan und Monatsberichte verwenden jetzt gemeinsam `GEMINI_MODEL`, standardmäßig `gemini-3.8-flash`. Für den Gratis-Start wird ein Google-AI-Studio-Projekt im Free-Tarif ohne aktivierte kostenpflichtige Abrechnung verwendet. Die tatsächlichen Kontingente sind projektabhängig. Der Belegscan benötigt eine Anmeldung und begrenzt Versuche auf fünf pro Nutzer mit Auffüllung nach 24 Stunden. Ein echter API-Test mit eigenem Schlüssel steht aus. Siehe [KI kostenlos einrichten](docs/AI.md).
 
-Der alte Seed-Endpunkt arbeitet mit festen IDs und löscht vorhandene Buchungen des hinterlegten Kontos. Verwende ihn nicht für den normalen Rundgang und schränke ihn vor einer öffentlichen Bereitstellung ein.
+Der alte Seed-Endpunkt ist deaktiviert und antwortet mit HTTP 410. Das bisherige Skript mit festen IDs wird darüber nicht mehr ausgeführt. Next.js und seine Prüfkonfiguration wurden auf die abgesicherte Version 15.5.28 aktualisiert; geschützte Routen und die Anmeldeweiterleitung sind korrigiert.
 
 Nutzerzahlen und Testimonials auf der Landingpage sind Beispieltexte. Die neue Vorschau zeigt echte Komponenten, prüft jedoch keine Anmeldung, Datenbankverbindung, KI-Antworten oder E-Mail-Zustellung. Details und weitere offene Punkte stehen im [englischen README](README.md#project-status).
 

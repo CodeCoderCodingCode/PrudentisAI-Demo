@@ -141,20 +141,20 @@ docs/                Setup, demo guide, architecture and actual screenshots
 | `npm run preview:build` | Build the isolated preview without external service credentials. |
 | `npm run lint` | Run ESLint using the checked-in flat configuration. |
 | `npm test` | Check AI model configuration and receipt upload validation without provider calls. |
-| `npm run build` | Build the full application; requires its environment configuration. |
+| `npm run build` | Build the full application; service configuration is required when serving requests. |
 | `npm start` | Serve a completed production build of the full application. |
 | `npm run email` | React Email development server; the base template needs sample props. |
 
-The [quality workflow](.github/workflows/quality.yml) checks lint, unit tests and the preview build without application secrets. Integration behavior requires configured services and is not established by that workflow.
+The [quality workflow](.github/workflows/quality.yml) checks lint, unit tests, the preview build and the full application build without application secrets. Authenticated pages render per request. Integration behavior requires configured services and is not established by these builds.
 
 ## Project status
 
 This repository is a **demo**, with implemented product flows and some unfinished integration details:
 
 - **AI configuration:** the retired Gemini 1.5 model has been replaced by a shared [`GEMINI_MODEL` configuration](lib/gemini.mjs), defaulting to `gemini-3.8-flash`. Google currently lists a [Free tier](https://ai.google.dev/gemini-api/docs/pricing) for this model. Use a Free-tier project without paid billing, check its actual quotas in AI Studio and verify model access with your own key. This change has not been live-tested against Google. See [free AI setup](docs/AI.md).
-- **Seed endpoint:** the legacy `/api/seed` route uses fixed account/user IDs and deletes existing transactions for that account. It is not part of the documented walkthrough. Restrict or remove it before deploying the full app publicly.
+- **Seed endpoint:** the legacy `/api/seed` route is disabled and returns HTTP 410. It does not execute the old generator with fixed user/account IDs. Add fictional transactions through the account interface instead.
 - **Landing-page content:** usage numbers, ratings and testimonials are demonstration copy, not verified customer or operational metrics. Existing illustrations are not application screenshots.
-- **Deployment readiness:** review route protection, recurring-job behavior and dependencies before using real financial data. Receipt scans now require authentication, reject unsupported or oversized files server-side and use a dedicated Arcjet limit. This work does not certify production readiness.
+- **Deployment readiness:** Next.js and its ESLint configuration are updated to 15.5.28, the currently documented patched 15.x release. Protected-route matching and the sign-in redirect have been corrected. Receipt scans require authentication, reject unsupported or oversized files server-side and use a dedicated Arcjet limit. Provider configuration, recurring-job behavior and end-to-end use still need verification before real financial data is used.
 - **Verification:** the local visual preview can be checked without credentials; end-to-end authentication, database, AI and email delivery require a separate configured integration run.
 
 See the [architecture notes](docs/ARCHITECTURE.md#implementation-notes) for specific follow-up areas.

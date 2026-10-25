@@ -1,8 +1,7 @@
 import React, {Suspense} from 'react'
-import DashboardPage from "@/app/(main)/dashboard/page";
 import {BarLoader} from "react-spinners";
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ children }) => {
     return (
         <div>
             <div>
@@ -11,7 +10,7 @@ const DashboardLayout = () => {
 
             {/* <h1>DashboardPage</h1> */}
             <Suspense fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea"/>}>
-            <DashboardPage/>
+            {children}
             </Suspense>
         </div>
     )

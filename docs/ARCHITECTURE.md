@@ -15,7 +15,7 @@ The main app uses the Next.js App Router. React client components handle forms, 
 | `/transaction/create` | Transaction creation and editing, including optional receipt scanning. |
 | `/api/inngest` | Inngest function registration and execution endpoint. |
 | `/api/exchangeRates` | Open Exchange Rates proxy with an EUR-based view. |
-| `/api/seed` | Legacy data generator with fixed IDs; not a supported public demo endpoint. |
+| `/api/seed` | Retired endpoint; returns HTTP 410 without executing the legacy generator. |
 
 `preview/` is a separate Next.js app with its own layout and configuration. It imports existing presentation components without importing the main app's Clerk layout, middleware or database actions. It is started explicitly with `npm run preview` and is not deployed by the quality workflow.
 
@@ -59,13 +59,15 @@ The cron expressions are interpreted by Inngest, not by the user's browser timez
 
 These areas remain follow-up work rather than capabilities established by the documentation and preview:
 
-1. **Full route protection.** The middleware patterns include `/transactions(.*)`, while the form route is `/transaction/create`; the dashboard matcher also deserves an explicit bare-path check. Verify redirect behavior for every protected route. Server Actions also enforce identity, but that does not replace navigation tests.
-2. **Legacy seeding.** `/api/seed` exposes a generator that uses fixed IDs and clears account transactions. It is not used by the new preview and should be restricted or removed before public deployment.
+1. **Full route protection.** Middleware now matches the bare dashboard and the actual `/transaction` prefix and uses Clerk's `auth.protect()` redirect. Verify these flows with the deployment's Clerk instance. Server Actions also enforce identity.
+2. **Legacy seeding.** `/api/seed` is disabled and returns HTTP 410. The historical generator is not imported by that endpoint and must not be reconnected to a public route.
 3. **Recurrence semantics.** The current due-check treats a missing `lastProcessed` as immediately due. Verify first-run dates, month-end behavior, retries and duplicate-event idempotency with a test database.
 4. **Date boundaries.** Some monthly queries use the final day at midnight as an inclusive end. Review end-of-day coverage, timezone handling and first-of-month reports across short months.
 5. **Concurrent balances.** The creation action reads a balance before writing a calculated new value. Review concurrent writes and default-account changes with realistic integration tests.
 6. **AI contract.** The provider model is configurable and bounded, but extraction accuracy, response shape and SDK compatibility still need a live test. MIME/size checks do not inspect the actual binary image signature. Review model output validation before relying on extracted financial values.
 7. **Email errors.** Confirm both API return values and job outcomes. Resend may return an error payload rather than throwing; retry and `lastAlertSent` behavior need a configured delivery test.
-8. **Dependency maintenance.** The locked Next.js / React ecosystem is from the original demo. Lint and a preview build are not a vulnerability assessment or an application-wide upgrade.
+8. **Dependency maintenance.** Next.js and eslint-config-next are updated to 15.5.28 following the October 2026 security advisory. Other dependencies still need routine maintenance; this targeted update is not an application-wide vulnerability assessment.
+
+The full application's root layout is dynamic, so authenticated pages are rendered per request instead of during a build. Both the preview and the full application now build without service credentials; runtime functionality still needs configured services. Database migrations enable row-level security and revoke access from Supabase's public REST roles, as the application accesses these tables through Prisma on the server.
 
 The UI's exchange-rate endpoint is separate from stored monetary values. Transactions currently display `$` and the schema has no currency field. Marketing text about customer metrics, testimonials or broad multi-currency support should not be treated as verified product behavior.

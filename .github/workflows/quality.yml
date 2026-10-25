@@ -29,3 +29,5 @@ jobs:
         run: npm test
       - name: Build component preview without service credentials
         run: npm run preview:build
+      - name: Build full application without contacting external services
+        run: npm run build

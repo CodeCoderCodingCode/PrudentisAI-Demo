@@ -36,7 +36,7 @@ The per-user scan bucket is not a global project cost cap. Monthly reports also 
 
 ## Verification and data handling
 
-Unit tests cover missing keys, shared model selection, retired-model rejection and receipt upload boundaries. They do not contact Google. A live receipt scan and report generation remain unverified until a configured integration run succeeds.
+Unit tests cover missing keys, shared model selection, retired-model rejection and receipt upload boundaries. They do not contact Google. A live model-list request with an owner-supplied key confirmed authentication and availability of `gemini-3.8-flash`; it generated no content and does not establish free quota or billing status. A live receipt scan and report generation remain unverified until a configured integration run succeeds.
 
 Use fictional receipt data initially. Receipt images and monthly aggregate statistics leave the application when those features call Google. Review the provider terms applicable to your location and tier before using personal financial data; the [pricing page](https://ai.google.dev/gemini-api/docs/pricing) links to the relevant data-use terms.
 

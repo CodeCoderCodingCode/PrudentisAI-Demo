@@ -15,7 +15,7 @@ export default function EmailTemplate({
                     <Container style={styles.container}>
                         <Heading style={styles.title}>Monthly Financial Report</Heading>
 
-                        <Text style={styles.text}>Hay {userName},</Text>
+                        <Text style={styles.text}>Hi {userName},</Text>
                         <Text style={styles.text}>
                             Here&rsquo;s your financial summary for {data?.month}:
                         </Text>
@@ -84,9 +84,9 @@ export default function EmailTemplate({
                 <Body style = {styles.body}>
                     <Container style = {styles.container}>
                         <Heading style={styles.title}>Budget Alert</Heading>
-                        <Text style={styles.text}>Hay {userName},</Text>
+                        <Text style={styles.text}>Hi {userName},</Text>
                         <Text style={styles.text}>
-                            You&rsquo;ve used {data?.percentageUsed.toFixed(1)}% of your monthly budget. 0:)
+                            You&rsquo;ve used {data?.percentageUsed.toFixed(1)}% of your monthly budget.
                         </Text>
                         <Section style={styles.container}>
                             <div style={styles.stat}>
@@ -100,7 +100,7 @@ export default function EmailTemplate({
                             <div style={styles.stat}>
                                 <Text style={styles.text}>Remaining</Text>
                                 <Text style={styles.heading}>
-                                    ${data?.budgetAmount - data?.totalExpenses}
+                                    ${(Number(data?.budgetAmount) - Number(data?.totalExpenses)).toFixed(2)}
                                 </Text>
                             </div>
                         </Section>

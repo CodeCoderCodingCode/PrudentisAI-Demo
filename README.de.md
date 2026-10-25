@@ -55,7 +55,7 @@ Next.js 15 und React 19 bilden die Anwendung. Die Oberfläche nutzt Tailwind CSS
 
 ## Stand und Grenzen
 
-Das Projekt ist eine Demo. Belegscan und Monatsberichte verwenden jetzt gemeinsam `GEMINI_MODEL`, standardmäßig `gemini-3.5-flash-lite`. Der Free-Tarif des Demo-Projekts ohne aktivierte Abrechnung wurde in AI Studio bestätigt. Ein echter API-Test mit erfundenem Belegtext lieferte die erwarteten JSON-Daten. Die tatsächlichen Kontingente sind projektabhängig. Der Belegscan benötigt eine Anmeldung und begrenzt Versuche auf fünf pro Nutzer mit Auffüllung nach 24 Stunden. Der Bildscan über die angemeldete Oberfläche und der Berichtversand müssen separat geprüft werden. Siehe [KI kostenlos einrichten](docs/AI.md).
+Das Projekt ist eine Demo. Belegscan und Monatsberichte verwenden gemeinsam `GEMINI_MODEL`, standardmäßig `gemini-3.5-flash-lite`. Der Free-Tarif des Demo-Projekts ohne aktivierte Abrechnung wurde in AI Studio bestätigt. Ein erfundener Bildbeleg wurde über die angemeldete Oberfläche gescannt und als Transaktion gespeichert. Zwei ausdrücklich freigegebene Test-Mails für Budgetwarnung und Monatsbericht wurden laut Resend zugestellt. Die automatische Zeitplanung ist noch nicht verbunden. Die tatsächlichen Kontingente sind projektabhängig; Belegscans sind auf fünf Versuche pro Nutzer mit Auffüllung nach 24 Stunden begrenzt. Siehe [Prüfergebnisse](docs/VERIFICATION.md) und [KI kostenlos einrichten](docs/AI.md).
 
 Der alte Seed-Endpunkt ist deaktiviert und antwortet mit HTTP 410. Das bisherige Skript mit festen IDs wird darüber nicht mehr ausgeführt. Next.js und seine Prüfkonfiguration wurden auf die abgesicherte Version 15.5.28 aktualisiert; geschützte Routen und die Anmeldeweiterleitung sind korrigiert.
 

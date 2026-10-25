@@ -10,7 +10,7 @@ A full-stack personal finance demo that brings accounts, transactions and spendi
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Prisma-111827?logo=postgresql)](prisma/schema.prisma)
 [![Project status](https://img.shields.io/badge/status-demo-f5d563)](#project-status)
 
-[Request a demo](docs/DEMO.md#request-a-demo) · [Set up the full app](docs/SETUP.md) · [Architecture](docs/ARCHITECTURE.md) · [Deutsch](README.de.md)
+[Request a demo](docs/DEMO.md#request-a-demo) · [Set up the full app](docs/SETUP.md) · [Verification](docs/VERIFICATION.md) · [Architecture](docs/ARCHITECTURE.md) · [Deutsch](README.de.md)
 
 ![Actual Prudentis AI analytics components rendered in a browser with fictional transactions](docs/images/analytics-preview.png)
 

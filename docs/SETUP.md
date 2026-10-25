@@ -50,6 +50,7 @@ Copy-Item .env.example .env
 | `GEMINI_API_KEY` | Receipt extraction and monthly AI insights. | Enabling AI features. |
 | `GEMINI_MODEL` | Shared model selection; defaults to `gemini-3.5-flash-lite`. | Optional override; verify availability in your project. |
 | `RESEND_API_KEY` | Budget-alert and monthly-report delivery. | Sending email. |
+| `RESEND_FROM` | Optional verified sender address. | Sending beyond Resend's restricted testing sender. |
 | `OPEN_EXCANGE_API_KEY` | `/api/exchangeRates`. The spelling matches the existing code. | Using exchange-rate data. |
 | `INNGEST_EVENT_KEY` | Send events to Inngest Cloud. | Deploying background jobs to Inngest Cloud. |
 | `INNGEST_SIGNING_KEY` | Verify Inngest Cloud requests. | Deploying background jobs to Inngest Cloud. |
@@ -100,7 +101,7 @@ Receipt images are sent to Google when this feature is used. Monthly insight gen
 
 ### Email delivery
 
-Set `RESEND_API_KEY`. [`actions/send-email.js`](../actions/send-email.js) currently uses `Prudentis AI <onboarding@resend.dev>`. Follow Resend's account restrictions for testing and configure a verified sender domain in the code before broader delivery. The preview's `/reports` route renders the email locally without sending anything.
+Set `RESEND_API_KEY`. The shared [`mail helper`](../lib/email.mjs) defaults to `Prudentis AI <onboarding@resend.dev>`. Follow Resend's account restrictions for testing; use `RESEND_FROM` with a verified sender domain before broader delivery. Provider error responses fail delivery, and job retries use stable idempotency headers. The preview's `/reports` route renders the email locally without sending anything. See the [verification record](VERIFICATION.md) for the authorized delivery tests and scheduling status.
 
 ### Scheduled jobs
 

@@ -8,6 +8,7 @@ import aj from "@/lib/arcjet";
 import { request } from "@arcjet/next";
 import aiRateLimit from "@/lib/arcjet-ai";
 import { validateReceiptFile } from "@/lib/receipt.mjs";
+import { parseReceiptResponse } from "@/lib/receipt-response.mjs";
 
 const serializeAmount = (obj) => ({
     ...obj,
@@ -151,14 +152,7 @@ export async function scanReceipt(file) {
         const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
 
         try {
-            const data = JSON.parse(cleanedText);
-            return {
-                amount: parseFloat(data.amount),
-                date: new Date(data.date),
-                description: data.description,
-                category: data.category,
-                merchantName: data.merchantName,
-            };
+            return parseReceiptResponse(JSON.parse(cleanedText));
         } catch (parseError) {
             console.error("Error parsing JSON response:", parseError);
             throw new Error("Invalid response format from Gemini");

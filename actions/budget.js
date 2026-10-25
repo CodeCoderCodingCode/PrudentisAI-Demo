@@ -3,6 +3,7 @@
 import {auth} from "@clerk/nextjs/server";
 import {db} from "@/lib/prisma";
 import {revalidatePath} from "next/cache";
+import {monthWindow} from "@/lib/reporting.mjs";
 
 export async function getCurrentBudget(accountId) {
     try{
@@ -24,16 +25,7 @@ export async function getCurrentBudget(accountId) {
         });
 
         const currentDate = new Date();
-        const startOfMonth = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            1
-        );
-        const endOfMonth = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth() + 1,
-            0
-        );
+        const {start: startOfMonth, end: endOfMonth} = monthWindow(currentDate);
 
         const expenses = await db.transaction.aggregate({
             where: {
@@ -42,7 +34,7 @@ export async function getCurrentBudget(accountId) {
                 type: "EXPENSE",
                 date: {
                     gte: startOfMonth,
-                    lte: endOfMonth,
+                    lt: endOfMonth,
                 },
             },
             _sum:{

@@ -48,7 +48,7 @@ Copy-Item .env.example .env
 | `NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL` | Default destination after sign-up; `/dashboard`. | Configuring sign-up navigation. |
 | `ARCJET_KEY` | Shield, bot detection and transaction rate limiting. | Starting the main application. |
 | `GEMINI_API_KEY` | Receipt extraction and monthly AI insights. | Enabling AI features. |
-| `GEMINI_MODEL` | Shared model selection; defaults to `gemini-3.8-flash`. | Optional override; verify availability in your project. |
+| `GEMINI_MODEL` | Shared model selection; defaults to `gemini-3.5-flash-lite`. | Optional override; verify availability in your project. |
 | `RESEND_API_KEY` | Budget-alert and monthly-report delivery. | Sending email. |
 | `OPEN_EXCANGE_API_KEY` | `/api/exchangeRates`. The spelling matches the existing code. | Using exchange-rate data. |
 | `INNGEST_EVENT_KEY` | Send events to Inngest Cloud. | Deploying background jobs to Inngest Cloud. |
@@ -82,7 +82,7 @@ Open [localhost:3000](http://localhost:3000), sign up and create your first acco
 
 ### Receipt scanning and AI reports
 
-Provide `GEMINI_API_KEY` and optionally `GEMINI_MODEL`. Both integrations now use [`lib/gemini.mjs`](../lib/gemini.mjs), which defaults to `gemini-3.8-flash`, requests JSON output and caps output at 2,048 tokens. It rejects retired Gemini 1.5 model IDs. Check provider access and actual output with your project's key before considering AI verified. See [AI.md](AI.md) for the Free-tier setup and limits.
+Provide `GEMINI_API_KEY` and optionally `GEMINI_MODEL`. Both integrations now use [`lib/gemini.mjs`](../lib/gemini.mjs), which defaults to `gemini-3.5-flash-lite`, requests JSON output and caps output at 2,048 tokens. It rejects retired Gemini 1.5 model IDs. Check provider access and actual output with your project's key before considering AI verified. See [AI.md](AI.md) for the Free-tier setup and limits.
 
 The receipt uploader and Server Action both check for non-empty JPEG, PNG or WebP files of at most 4 MiB, leaving room beneath the 5 MB Server Action body limit. Scanning requires authentication and a separate Arcjet bucket of five attempts per user, refilling every 24 hours. Provider project quotas apply in addition. Confirm every extracted field before saving.
 

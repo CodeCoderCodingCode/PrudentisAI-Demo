@@ -20,7 +20,7 @@ test("shared Gemini configuration", async (t) => {
   process.env.GEMINI_API_KEY = "test-only-placeholder";
   await t.test("unset model selects the documented default", () => {
     delete process.env.GEMINI_MODEL;
-    assert.equal(getGeminiModel().model, "models/gemini-3.8-flash");
+    assert.equal(getGeminiModel().model, "models/gemini-3.5-flash-lite");
   });
 
   await t.test("configured models are shared and whitespace is trimmed", () => {

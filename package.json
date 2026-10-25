@@ -14,6 +14,7 @@
     "preview": "next dev preview --hostname 127.0.0.1 --port 3001",
     "preview:build": "next build preview",
     "test": "node --test tests/*.test.mjs",
+    "seed:demo": "node --env-file=.env scripts/seed-demo.mjs",
     "postinstall": "prisma generate"
   },
   "dependencies": {

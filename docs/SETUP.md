@@ -78,6 +78,16 @@ npm run dev
 
 Open [localhost:3000](http://localhost:3000), sign up and create your first account. The header's `checkUser` flow creates a corresponding database user for the authenticated Clerk user. Add transactions manually before testing optional integrations.
 
+### Populate an account with fictional demo data
+
+After creating an account, copy its ID from `/account/<id>`. With the intended database configured in `.env`, first preview the seed:
+
+```sh
+npm run seed:demo -- --account-id <account-id>
+```
+
+Add `--apply` to insert the data. The script supplies 90 days of varied, explicitly `DEMO`-labelled transactions and a 2,400 example budget if none exists. It preserves existing transactions and budgets, adjusts the account balance only for new entries, and uses stable IDs so repeating the same seed does not duplicate transactions. It runs on the administrator's machine; no public HTTP seed endpoint is opened. Example amounts use the app's current USD display.
+
 ## 5. Optional integrations
 
 ### Receipt scanning and AI reports

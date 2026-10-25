@@ -18,7 +18,7 @@ cd PrudentisAI-Demo
 npm ci --legacy-peer-deps
 ```
 
-The existing dependency tree combines React 19 with React Day Picker 8 peer requirements. `--legacy-peer-deps` installs the checked-in lockfile without resolving that upstream compatibility mismatch. Installation runs `prisma generate` automatically through `postinstall`.
+The existing dependency tree combines React 19 with React Day Picker 8 peer requirements. `--legacy-peer-deps` installs the checked-in lockfile without resolving that upstream compatibility mismatch; `.npmrc` also sets this option for hosted installs. Installation runs `prisma generate` automatically through `postinstall`.
 
 ## 2. Create your environment file
 
@@ -126,5 +126,7 @@ Set `OPEN_EXCANGE_API_KEY` for the Open Exchange Rates integration. The endpoint
 `npm run build` and `npm start` build and serve the full app. A build does not require live database or authentication calls: the root layout renders per request. Runtime requests still need the application's environment variables in the target platform. Apply migrations to the intended database and configure Clerk, Arcjet, Resend and Inngest for that environment. The app also downloads its Google font during the build.
 
 For Supabase on Vercel, use the project's actual shared transaction-pooler host on port 6543 for `DATABASE_URL` with `pgbouncer=true`, and the session-pooler connection on port 5432 for `DIRECT_URL` when the deployment environment only supports IPv4. Copy the host from the project's Connect dialog; the cluster index cannot be inferred from its region. See the [Supabase connection guide](https://supabase.com/docs/guides/database/connecting-to-postgres).
+
+Use a dedicated server database role with access to application tables. A runtime role with no schema-management privileges cannot apply migrations: run those through an administrator connection or the Supabase management tools. The Prisma model uses Clerk identities; Supabase's public `anon` and `authenticated` API roles should have no access to these tables. Keep the database password and provider keys in encrypted deployment environment variables.
 
 Review the [implementation notes](ARCHITECTURE.md#implementation-notes) before public deployment. The isolated preview build only checks UI rendering and does not establish that the complete application or its services are production-ready.

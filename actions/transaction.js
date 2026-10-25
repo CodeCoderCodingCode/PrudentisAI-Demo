@@ -3,11 +3,11 @@
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getGeminiModel } from "@/lib/gemini.mjs";
 import aj from "@/lib/arcjet";
 import { request } from "@arcjet/next";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+import aiRateLimit from "@/lib/arcjet-ai";
+import { validateReceiptFile } from "@/lib/receipt.mjs";
 
 const serializeAmount = (obj) => ({
     ...obj,
@@ -100,9 +100,16 @@ export async function createTransaction(data) {
 
 // Scan Receipt
 export async function scanReceipt(file) {
+    const { userId } = await auth();
+    if (!userId) throw new Error("Sign in before scanning a receipt.");
+    validateReceiptFile(file);
+    const model = getGeminiModel();
+    const decision = await aiRateLimit.protect(await request(), { userId, requested: 1 });
+    // Fail closed for errors and unknown decisions as well as explicit denials.
+    if (decision.conclusion !== "ALLOW") {
+        throw new Error("Receipt scanning is temporarily unavailable or your scan limit has been reached. Try again later.");
+    }
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
         // Convert File to ArrayBuffer
         const arrayBuffer = await file.arrayBuffer();
         // Convert ArrayBuffer to Base64

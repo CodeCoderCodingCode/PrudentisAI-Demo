@@ -16,7 +16,7 @@ import {
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Sector } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Sector, Tooltip } from "recharts";
 
 const COLORS = [
     "#0088FE",
@@ -53,8 +53,6 @@ const renderActiveShape = (props) => {
                 startAngle={startAngle}
                 endAngle={endAngle}
                 fill={fill}
-                stroke="none" // Entfernt den weißen Rahmen
-
                 focusable={false}
                 tabIndex={-1}// Kein Rahmen an den einzelnen Pie-Stücken
 
@@ -138,7 +136,7 @@ const DashboardOverview = ({ accounts, transactions }) => {
                         ) : (
                             recentTransactions.map((transaction) => (
                                 <div key={transaction.id} className="flex items-center justify-between">
-                                    <div className="space-y-1">
+                                    <div className="space-y-1 py-2">
                                         <p className="text-sm font-medium leading-none">
                                             {transaction.description || "Untitled Transaction"}
                                         </p>
@@ -193,7 +191,6 @@ const DashboardOverview = ({ accounts, transactions }) => {
                                         onMouseLeave={() => setActiveIndex(-1)}
 
 
-                                        label={({ name, value }) => `${name}: $${value.toFixed(2)}`}
                                         fill="#8884d8"
                                     >
                                         {pieChartData.map((entry, index) => (
@@ -205,6 +202,11 @@ const DashboardOverview = ({ accounts, transactions }) => {
                                             />
                                         ))}
                                     </Pie>
+                                    <Tooltip
+                                        contentStyle={{ backgroundColor: "#05121c", color: "#fff1c2", borderRadius: "8px" }}
+                                        itemStyle={{ color: "#fff1c2" }}
+                                        formatter={(value) => `$${Number(value).toFixed(2)}`}
+                                    />
                                     <Legend />
                                 </PieChart>
                             </ResponsiveContainer>

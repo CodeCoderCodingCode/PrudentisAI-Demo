@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import useFetch from "@/hooks/use-fetch";
 import { scanReceipt } from "@/actions/transaction";
+import { RECEIPT_IMAGE_TYPES, validateReceiptFile } from "@/lib/receipt.mjs";
 
 export function ReceiptScanner({ onScanComplete }) {
     const fileInputRef = useRef(null);
@@ -17,8 +18,10 @@ export function ReceiptScanner({ onScanComplete }) {
     } = useFetch(scanReceipt);
 
     const handleReceiptScan = async (file) => {
-        if (file.size > 5 * 1024 * 1024) {
-            toast.error("File size should be less than 5MB");
+        try {
+            validateReceiptFile(file);
+        } catch (error) {
+            toast.error(error.message);
             return;
         }
         await scanReceiptFn(file);
@@ -37,7 +40,7 @@ export function ReceiptScanner({ onScanComplete }) {
                 type="file"
                 ref={fileInputRef}
                 className="hidden"
-                accept="image/*"
+                accept={RECEIPT_IMAGE_TYPES.join(",")}
                 capture="environment"
                 onChange={(e) => {
                     const file = e.target.files?.[0];

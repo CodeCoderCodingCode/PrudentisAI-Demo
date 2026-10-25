@@ -38,13 +38,13 @@ const HeroSection = () => {
                     <Link href="/sign-up">
                         <Button variant="outline" className="text-gray-600">Get Started</Button>
                     </Link>
-                    <Link href="/demo-video">
-                        <Button>Watch Demo</Button>
+                    <Link href="https://github.com/CodeCoderCodingCode/PrudentisAI-Demo/blob/main/docs/DEMO.md">
+                        <Button>Request Demo</Button>
                     </Link>
                 </div>
                 <div className="hero-image-wrapper">
                     <div ref = {imageRef} className="hero-image">
-                    <Image src="/banner.jpeg" alt="Dashboard Preview" width={1280} height={720} className=" rounded-lg shadow-2xl border mx-auto" priority/>
+                    <Image src="/banner.jpeg" alt="Prudentis AI robot illustration" width={1280} height={720} className=" rounded-lg shadow-2xl border mx-auto" priority/>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  background: #0c1020;
+  color: #f5f3ea;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body::before { display: none; }
+.preview-header {
+  max-width: 1240px;
+  margin: auto;
+  padding: 28px 32px;
+  border-bottom: 1px solid #272c41;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.preview-brand { font-size: 24px; font-weight: 700; letter-spacing: -.8px; }
+.preview-brand span { color: #f5d563; }
+.preview-header nav { display: flex; gap: 24px; font-size: 14px; color: #c6cad8; }
+.preview-label { margin-left: auto; font-size: 10px; letter-spacing: 1.6px; color: #f5d563; }
+.preview-main { max-width: 1240px; margin: auto; padding: 44px 32px 24px; }
+.preview-eyebrow { color: #f5d563; letter-spacing: 2px; font-size: 11px; margin-bottom: 12px; }
+.preview-title { font-size: clamp(32px, 5vw, 48px); line-height: 1.1; font-weight: 700; letter-spacing: -1.6px; margin: 0 0 16px; }
+.preview-description { color: #b6bdce; font-size: 15px; line-height: 1.7; max-width: 720px; margin-bottom: 28px; }
+.preview-chart { margin-top: 24px; }
+.preview-footer { max-width: 1240px; margin: 0 auto; padding: 24px 32px; color: #a6aec3; font-size: 12px; line-height: 1.7; }
+.preview-report { width: 100%; min-height: 1860px; border: 1px solid #333851; border-radius: 12px; background: #14162f; }
+@media (max-width: 600px) {
+  .preview-header, .preview-main, .preview-footer { padding-left: 18px; padding-right: 18px; }
+  .preview-label { margin-left: 0; width: 100%; }
+}

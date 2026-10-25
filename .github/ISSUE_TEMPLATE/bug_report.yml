@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a reproducible problem in the application or component preview.
+title: "[Bug] "
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does the problem occur?
+      options:
+        - Full application
+        - Local component preview
+        - Setup or documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include expected and actual behavior. Remove credentials and personal financial data.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Node/npm versions, operating system, browser and relevant sanitized errors.
